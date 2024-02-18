@@ -199,7 +199,7 @@ export default function SVGPieces({
       }`,
     };
 
-    listPositions.forEach((position) => {
+    listPositions.forEach(position => {
       let d = getOuterEyePathData(position, pieceSize, qrSize);
 
       if (Object.keys(outerEyesOptions).includes(position)) {
@@ -252,7 +252,7 @@ export default function SVGPieces({
       }`,
     };
 
-    listPositions.forEach((position) => {
+    listPositions.forEach(position => {
       let d = getInnerEyePathData(position, pieceSize, bitMatrix.length * pieceSize);
 
       if (Object.keys(innerEyesOptions).includes(position)) {

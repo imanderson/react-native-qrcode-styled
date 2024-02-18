@@ -1,10 +1,4 @@
-import React, {
-  ForwardedRef,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { ForwardedRef, forwardRef, useEffect, useMemo, useState } from 'react';
 import {
   ClipPath,
   Defs,
@@ -37,7 +31,7 @@ import SVGQRLogo from './SVGQRLogo';
 export interface SVGQRCodeStyledProps
   extends QRCodeOptions,
     PieceOptions,
-    SvgProps {
+    Omit<SvgProps, 'children'> {
   data?: QRCodeMessage;
   onChangeSize?: (size: number) => void;
   pieceLiquidRadius?: number;
@@ -49,10 +43,7 @@ export interface SVGQRCodeStyledProps
   backgroundImage?: SVGImageProps;
   logo?: LogoOptions;
   children?: (pieceSize: number, bitMatrix: BitMatrix) => SvgProps['children'];
-  renderBackground?: (
-    pieceSize: number,
-    bitMatrix: BitMatrix,
-  ) => SvgProps['children'];
+  renderBackground?: (pieceSize: number, bitMatrix: BitMatrix) => SvgProps['children'];
   fluidDimensions?: boolean;
 }
 
@@ -86,9 +77,9 @@ function SVGQRCodeStyled(
     fluidDimensions,
     ...props
   }: SVGQRCodeStyledProps,
-  ref?: ForwardedRef<Svg> | null,
+  ref?: ForwardedRef<Svg> | null
 ) {
-  const {hidePieces = true, onChange: onChangeLogo, ...logoProps} = logo || {};
+  const { hidePieces = true, onChange: onChangeLogo, ...logoProps } = logo || {};
   const [logoArea, setLogoArea] = useState<LogoArea | undefined>();
   const qrCodeOptions = useMemo(
     () => ({
@@ -97,9 +88,9 @@ function SVGQRCodeStyled(
       maskPattern,
       toSJISFunc,
     }),
-    [errorCorrectionLevel, maskPattern, toSJISFunc, version],
+    [errorCorrectionLevel, maskPattern, toSJISFunc, version]
   );
-  const {qrCodeSize, bitMatrix} = useQRCodeData(data, qrCodeOptions);
+  const { qrCodeSize, bitMatrix } = useQRCodeData(data, qrCodeOptions);
   const svgSize = pieceSize * qrCodeSize;
 
   useEffect(() => {
@@ -107,12 +98,10 @@ function SVGQRCodeStyled(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qrCodeSize]);
 
-  const transformedOuterEyesOptions =
-    transformEyeOptionsToCommonPattern(outerEyesOptions);
-  const transformedInnerEyesOptions =
-    transformEyeOptionsToCommonPattern(innerEyesOptions);
+  const transformedOuterEyesOptions = transformEyeOptionsToCommonPattern(outerEyesOptions);
+  const transformedInnerEyesOptions = transformEyeOptionsToCommonPattern(innerEyesOptions);
 
-  const _props = {...props};
+  const _props = { ...props };
   if (padding) {
     const _size = svgSize + 2 * padding;
     _props.width = _size;
@@ -120,22 +109,16 @@ function SVGQRCodeStyled(
     _props.viewBox = `-${padding} -${padding} ${_size} ${_size}`;
   }
 
-  const startGradientOuterEyeCoords: {[K in EyePosition]: GradientOrigin} = {
+  const startGradientOuterEyeCoords: { [K in EyePosition]: GradientOrigin } = {
     topLeft: [0, 0],
     topRight: [svgSize - pieceSize * OUTER_EYE_SIZE_IN_BITS, 0],
     bottomLeft: [0, svgSize - pieceSize * OUTER_EYE_SIZE_IN_BITS],
   };
 
-  const startGradientInnerEyeCoords: {[K in EyePosition]: GradientOrigin} = {
+  const startGradientInnerEyeCoords: { [K in EyePosition]: GradientOrigin } = {
     topLeft: [2 * pieceSize, 2 * pieceSize],
-    topRight: [
-      svgSize - pieceSize * INNER_EYE_SIZE_IN_BITS + 2 * pieceSize,
-      2 * pieceSize,
-    ],
-    bottomLeft: [
-      2 * pieceSize,
-      svgSize - pieceSize * OUTER_EYE_SIZE_IN_BITS + 2 * pieceSize,
-    ],
+    topRight: [svgSize - pieceSize * INNER_EYE_SIZE_IN_BITS + 2 * pieceSize, 2 * pieceSize],
+    bottomLeft: [2 * pieceSize, svgSize - pieceSize * OUTER_EYE_SIZE_IN_BITS + 2 * pieceSize],
   };
 
   const renderPieces = () => (
@@ -211,13 +194,9 @@ function SVGQRCodeStyled(
       {..._props}
       width={fluidDimensions ? '100%' : svgSize}
       height={fluidDimensions ? '100%' : svgSize}>
-      {(!!gradient ||
-        !!transformedOuterEyesOptions ||
-        !!transformedInnerEyesOptions) && (
+      {(!!gradient || !!transformedOuterEyesOptions || !!transformedInnerEyesOptions) && (
         <Defs>
-          {!!gradient && (
-            <SVGGradient id="gradient" size={svgSize} {...gradient} />
-          )}
+          {!!gradient && <SVGGradient id="gradient" size={svgSize} {...gradient} />}
 
           {!!transformedOuterEyesOptions &&
             Object.keys(transformedOuterEyesOptions).map(key => {
@@ -227,8 +206,7 @@ function SVGQRCodeStyled(
                   key={`${key}CornerSquareGradient`}
                   size={pieceSize * OUTER_EYE_SIZE_IN_BITS}
                   origin={startGradientOuterEyeCoords[key as EyePosition]}
-                  {...transformedOuterEyesOptions?.[key as EyePosition]
-                    ?.gradient}
+                  {...transformedOuterEyesOptions?.[key as EyePosition]?.gradient}
                 />
               );
             })}
@@ -241,8 +219,7 @@ function SVGQRCodeStyled(
                   key={`${key}CornerDotGradient`}
                   size={pieceSize * INNER_EYE_SIZE_IN_BITS}
                   origin={startGradientInnerEyeCoords[key as EyePosition]}
-                  {...transformedInnerEyesOptions?.[key as EyePosition]
-                    ?.gradient}
+                  {...transformedInnerEyesOptions?.[key as EyePosition]?.gradient}
                 />
               );
             })}

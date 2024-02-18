@@ -25,8 +25,7 @@ export default function SVGLinearGradient({
       x1={start[0] * size + origin[0]}
       y1={start[1] * size + origin[1]}
       x2={end[0] * size + origin[0]}
-      y2={end[1] * size + origin[1]}
-    >
+      y2={end[1] * size + origin[1]}>
       {colors?.map((c, i) => (
         <Stop key={i} offset={locations?.[i]} stopColor={c} stopOpacity="1" />
       ))}

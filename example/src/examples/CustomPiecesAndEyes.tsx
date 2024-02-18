@@ -90,8 +90,7 @@ export default function CustomPiecesAndEyes() {
       style={styles.svg}
       padding={25}
       pieceSize={8}
-      renderCustomPieceItem={renderCustomPieceItem}
-    >
+      renderCustomPieceItem={renderCustomPieceItem}>
       {renderChildren}
     </QRCodeStyled>
   );

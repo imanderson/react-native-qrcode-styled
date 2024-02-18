@@ -12,7 +12,7 @@ export function createQRCode(
 ): { size: number; bitMatrix: BitMatrix } {
   const QRCodeData = QRC.create(message, options);
   const { size = 0, data = [] } = QRCodeData?.modules || {};
-  const bitArray = Array.from(data).map((bit) => (bit ? 1 : 0));
+  const bitArray = Array.from(data).map(bit => (bit ? 1 : 0));
   const bitMatrix = transformBitArrayToMatrix(bitArray, size);
 
   return {

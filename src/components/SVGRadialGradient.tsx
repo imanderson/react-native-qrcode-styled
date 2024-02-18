@@ -25,8 +25,7 @@ export default function SVGRadialGradient({
       cx={center[0] * size + origin[0]}
       cy={center[1] * size + origin[1]}
       rx={radius[0] * size}
-      ry={radius[1] * size}
-    >
+      ry={radius[1] * size}>
       {colors?.map((c, i) => (
         <Stop key={i} offset={locations?.[i]} stopColor={c} stopOpacity="1" />
       ))}

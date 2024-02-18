@@ -76,8 +76,7 @@ export default function DownloadQR() {
 
       <Pressable
         onPress={handlePressDownload}
-        style={({ pressed }) => [styles.button, { backgroundColor: pressed ? 'grey' : 'black' }]}
-      >
+        style={({ pressed }) => [styles.button, { backgroundColor: pressed ? 'grey' : 'black' }]}>
         <Text style={styles.buttonText}>download</Text>
       </Pressable>
     </View>

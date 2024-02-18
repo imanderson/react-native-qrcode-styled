@@ -45,7 +45,7 @@ export function transformEyeOptionsToCommonPattern(
     return undefined;
   }
 
-  if (Object.keys(options).find((key) => EYES_POSITIONS.includes(key))) {
+  if (Object.keys(options).find(key => EYES_POSITIONS.includes(key))) {
     return options as AllEyesOptions;
   }
 

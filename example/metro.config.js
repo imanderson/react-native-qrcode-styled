@@ -24,7 +24,7 @@ module.exports = {
     ...defaultConfig.resolver,
 
     blacklistRE: exclusionList(
-      modules.map((m) => new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`))
+      modules.map(m => new RegExp(`^${escape(path.join(root, 'node_modules', m))}\\/.*$`))
     ),
 
     extraNodeModules: modules.reduce((acc, name) => {
@@ -32,7 +32,7 @@ module.exports = {
       return acc;
     }, {}),
 
-    assetExts: defaultConfig.resolver.assetExts.filter((ext) => ext !== 'svg'),
+    assetExts: defaultConfig.resolver.assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...defaultConfig.resolver.sourceExts, 'svg'],
   },
 
