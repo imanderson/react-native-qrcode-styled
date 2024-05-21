@@ -140,6 +140,9 @@
       "commonjs",
       "module",
       "typescript"
+    ],
+    "ignore": [
+      "example"
     ]
   },
   "packageManager": "yarn@4.2.2"
